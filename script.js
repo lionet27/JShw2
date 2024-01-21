@@ -1,33 +1,95 @@
-// 1) Дан массив const arr = [1, 5, 7, 9] с помощью Math.min и spread оператора, найти минимальное число в массиве, решение задание должно состоять из одной строки
-const arr = [1, 5, 7, 9];
-console.log(Math.min(...arr));
-
-// 2) Напишите функцию createCounter, которая создает счетчик и возвращает объект с двумя методами: increment и decrement. Метод increment должен увеличивать значение счетчика на 1, а метод decrement должен уменьшать значение счетчика на 1. Значение счетчика должно быть доступно только через методы объекта, а не напрямую.
-const createCounter = () =>{
-    let counter = 0;
-    return {
-        increment: () => ++counter,
-        decrement: () => --counter,
+// Задание 1: ""Управление библиотекой книг""  Реализуйте класс Book, представляющий книгу, со следующими свойствами и методами:
+// Свойство title (название) - строка, название книги.
+// Свойство author (автор) - строка, имя автора книги.
+// Свойство pages (количество страниц) - число, количество страниц в книге.
+// Метод displayInfo() - выводит информацию о книге (название, автор и количество страниц).
+class Book{
+    constructor(title, author, pages){
+    this.title=title;
+    this.author=author;
+    this.pages=pages;
     }
 
-}
-const counter1= createCounter();
-console.log(counter1.increment());
-console.log(counter1.decrement());
-console.log(counter1.increment());
-
-
-// 3) Напишем функцию, которая будет находить факториал числа с использованием рекурсии:
-// console.log(factorial(5)); // выводит 120 (5 * 4 * 3 * 2 * 1)
-// console.log(factorial(0)); // выводит 1 (по определению факториала)
-
-let factorial =(num) => {
-    if (num===0) {
-        return 1;
-    } else {
-        return factorial(num-1)*num;
+    displayInfo() {
+        console.log(`Название книги: ${this.title},автор:${this.author}, количество страниц: ${this.pages}`);
     }
 }
-console.log(factorial(5)); 
-console.log(factorial(0));
-console.log(factorial(7));
+const book1=new Book('Улисс', 'Джеймс Дж', 1056);
+book1.displayInfo();
+const book2=new Book('Трилогия желания', 'Драйзер Т', 1152);
+book2.displayInfo();
+
+// Задание 2: ""Управление списком студентов"".  Реализуйте класс Student, представляющий студента, со следующими свойствами и методами:
+// Свойство name (имя) - строка, имя студента.
+// Свойство age (возраст) - число, возраст студента.
+// Свойство grade (класс) - строка, класс, в котором учится студент.
+// Метод displayInfo() - выводит информацию о студенте (имя, возраст и класс).
+class Student{
+    constructor(name, age, grade){
+    this.name=name;
+    this.age=age;
+    this.grade=grade;
+    }
+
+    displayInfo() {
+        console.log(
+        `
+        Name: ${this.name}
+        Age:${this.age}
+        Grage: ${this.grade}`);
+    }
+}
+const student1 = new Student("John Smith", 16, "10th grade");
+student1.displayInfo();
+const student2 = new Student("Jane Doe", 17, "11th grade");
+student2.displayInfo();
+
+
+//3 Создать класс "Телефонная книга" с методами для добавления, удаления и поиска контактов по имени или номеру телефона.
+
+
+class Phonebook {
+    constructor() {
+      this.contacts = {};
+    }
+  
+    addContact(name, phoneNumber) {
+      this.contacts[name] = phoneNumber;
+    }
+  
+         
+    deleteContact(query) {
+        for (const name in this.contacts) {
+            if (name.includes(query) || this.contacts[name].includes(query)) {
+              delete this.contacts[name];
+            }
+          }
+
+      }
+  
+    findContact(query) {
+      const results = [];
+      for (const name in this.contacts) {
+        if (name.includes(query) || this.contacts[name].includes(query)) {
+          results.push({ name, phoneNumber: this.contacts[name] });
+        }
+      }
+      return results;
+    }
+  }
+  // Пример использования
+let phonebook = new Phonebook();
+phonebook.addContact("Иванов", "123-45-67");
+phonebook.addContact("Петров", "987-65-43");
+console.log(phonebook.contacts);
+console.log(phonebook.findContact("Иванов")); // { name: "Иванов", phone: "123-45-67" }
+console.log(phonebook.findContact("987-65-43")); // { name: "Петров", phone: "987-65-43" }
+phonebook.deleteContact("Иванов");
+console.log(phonebook.contacts); // [{ name: "Петров", phone: "987-65-43" }]
+phonebook.deleteContact("987-65-43");
+console.log(phonebook.contacts);
+
+
+
+
+
